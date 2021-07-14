@@ -28,13 +28,13 @@ namespace MemoryCache
 
             services.Configure<KBBHttpOptions>(Configuration.GetSection(nameof(KBBHttpOptions)));
 
-            services.Decorate<IKBBHttpService, KBBHttpServiceCache>();
             services.AddHttpClient<IKBBHttpService, KBBHttpService>((serviceProvider, client) => 
             {
                 var kbbOptions = serviceProvider.GetService<IOptions<KBBHttpOptions>>().Value;
 
                 client.BaseAddress = new Uri(kbbOptions.BaseAddress);
             });
+            services.Decorate<IKBBHttpService, KBBHttpServiceCache>();
 
             services.AddSwaggerGen(c =>
             {
