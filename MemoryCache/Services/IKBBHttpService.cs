@@ -7,5 +7,7 @@ namespace MemoryCache.Services
     public interface IKBBHttpService
     {
         Task<BaseResponseModel<IList<YearResponseModel>>> GetAllYears();
+
+        Task<string> GetVehicleCatalog();
     }
 }

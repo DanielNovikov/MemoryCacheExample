@@ -24,5 +24,11 @@ namespace MemoryCache.Controllers
 
             return yearsResponse.Response;
         }
+
+        [HttpGet("GetVehicleCatalog")]
+        public Task<string> GetVehicleCatalog()
+        {
+            return _kbbHttpService.GetVehicleCatalog();
+        }
     }
 }

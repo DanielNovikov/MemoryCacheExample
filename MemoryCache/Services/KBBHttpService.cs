@@ -13,6 +13,7 @@ namespace MemoryCache.Services
         private KBBHttpOptions _options;
 
         private const string GetAllYearsEndpoint = "GetAllYears";
+        private const string GetVehicleCatalogEndpoint = "GetVehicleCatalog";
 
         public KBBHttpService(
             HttpClient httpClient,
@@ -29,6 +30,13 @@ namespace MemoryCache.Services
             var json = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<BaseResponseModel<IList<YearResponseModel>>>(json);
+        }
+
+        public async Task<string> GetVehicleCatalog()
+        {
+            var response = await _httpClient.GetAsync($"{GetVehicleCatalogEndpoint}?{GetSecurityTokenParam()}");
+
+            return await response.Content.ReadAsStringAsync();
         }
 
         private string GetSecurityTokenParam()

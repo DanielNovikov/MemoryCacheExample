@@ -12,6 +12,7 @@ namespace MemoryCache.Services
         private readonly IKBBHttpService _httpService;
 
         private const string GetAllYearsKey = "GetAllYears";
+        private const string GetVehicleCatalogKey = "GetVehicleCatalog";
 
         public KBBHttpServiceCache(
             IMemoryCache cache,
@@ -25,9 +26,19 @@ namespace MemoryCache.Services
         {
             return _cache.GetOrCreateAsync(GetAllYearsKey, entry =>
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
                 return _httpService.GetAllYears();
+            });
+        }
+
+        public Task<string> GetVehicleCatalog()
+        {
+            return _cache.GetOrCreateAsync(GetVehicleCatalogKey, entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+
+                return _httpService.GetVehicleCatalog();
             });
         }
     }
